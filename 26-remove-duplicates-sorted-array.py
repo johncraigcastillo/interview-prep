@@ -27,3 +27,11 @@ solution = Solution()
 k = solution.removeDuplicates(nums)
 print(f"nums: {nums}")
 print(f"k: {k}")
+
+"""
+time complexity: O(n)
+    right just iterates through the entire array
+    left moves k times through the array so it's n + k which is O(n)
+space complexity: O(1)
+    nums is changed in place
+"""
