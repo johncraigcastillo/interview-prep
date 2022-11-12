@@ -1,33 +1,38 @@
+"""
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+
+Explanation: Your function should return k = 5, with the first five elements
+of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned k (hence they are
+underscores).
+"""
+
+
 class Solution:
-    """
-    left = 0
-    for i range(1, len(nums)):
-        right = i
-        if nums[left] != nums[right]:
-                nums[left + 1] = numsRight
-                left += 1
-              l        r
-    [0, 1, 2, 1, 1, 2, 2, 3, 3, 4]
-
-    """
-
     def removeDuplicates(self, nums: list[int]) -> int:
+        # if the array is empty
+        if len(nums) < 1:
+            return 0
+
+        # left pointer will start at index 1
         left = 1
+
+        # move right pointer from index 1 to last index
         for right in range(1, len(nums)):
-            if nums[right - 1] != nums[right]:
+            if nums[right] != nums[right - 1]:
                 nums[left] = nums[right]
                 left += 1
         return left
 
 
-"""
-time complexity: O(n)
-    iterating through entire list
-space: O(1)
-    everything is done in place
-"""
+def main():
+    solved = Solution()
+    nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+    # nums = []
+    solution = solved.removeDuplicates(nums)
+    print(solution)
 
-solve = Solution()
-nums = [1]
-k = solve.removeDuplicates(nums)
-print(k)
+
+if __name__ == "__main__":
+    main()
