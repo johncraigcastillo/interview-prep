@@ -1,37 +1,51 @@
 """
-Input: nums = [0,0,1,1,1,2,2,3,3,4]
-Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
-
-Explanation: Your function should return k = 5, with the first five elements
-of nums being 0, 1, 2, 3, and 4 respectively.
-It does not matter what you leave beyond the returned k (hence they are
-underscores).
+issues: forgot to modulus k against len(nums)
+3 % 3 = 0 because the remainder of 3 / 3 is 0
+10 % 3 = 1 because the remainder of 10/3 is 1
+3 % 10 = 3 because the remainder of 3 / 10 is 3
+    10 goes into 3 0 times. so 3 remains
 """
 
 
 class Solution:
-    def removeDuplicates(self, nums: list[int]) -> int:
-        # if the array is empty
-        if len(nums) < 1:
-            return 0
+    def rotate(self, nums: list[int], k: int) -> None:
+        k = k % len(nums)
+        # reverse whole thing
+        reverse_section(nums, 0, len(nums) - 1)
+        # reverse from 0 to k-1
+        reverse_section(nums, 0, k - 1)
+        # reverse from k to len(nums)-1
+        reverse_section(nums, k, len(nums) - 1)
+        print(nums)
 
-        # left pointer will start at index 1
-        left = 1
 
-        # move right pointer from index 1 to last index
-        for right in range(1, len(nums)):
-            if nums[right] != nums[right - 1]:
-                nums[left] = nums[right]
-                left += 1
-        return left
+def reverse_section(nums: list[int], left: int, right: int):
+    """
+    while left < right:
+       nums[left], nums[right] = nums[right], nums[left]
+       left++
+       right--
+    """
+    while left < right:
+        nums[left], nums[right] = nums[right], nums[left]
+        left += 1
+        right -= 1
 
 
 def main():
-    solved = Solution()
-    nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
-    # nums = []
-    solution = solved.removeDuplicates(nums)
-    print(solution)
+    solution = Solution()
+    nums = [1, 2, 3, 4]
+    k = 1
+    """
+    1, 2, 3, 4
+    k = 1
+    out: 4, 1, 2, 3
+    1. reverse
+        4, 3, 2, 1
+    2. reverse from index 0, k-1
+    3. reverse from index k, len(nums) - 1
+    """
+    solution.rotate(nums, k)
 
 
 if __name__ == "__main__":
